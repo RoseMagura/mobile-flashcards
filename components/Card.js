@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Text } from 'react-native'
 
-class AddQuestion extends Component {
+class Card extends Component {
   render() {
     return (
-      <Text>Form to Add Question</Text>
+      <Text>Individual Card</Text>
     );
   }
 }
 
-export default AddQuestion
+export default Card

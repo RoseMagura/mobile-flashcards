@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import Deck from './Deck'
-import AddQuestion from './AddQuestion'
+import AddCard from './AddCard'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 class DeckList extends Component {
-    linkToDeck({ navigation }) {
-        alert(`linking...`)
-        navigation.navigate('Deck')
+    linkToDeck(name, cards) {
+        const { navigation } = this.props
+        navigation.navigate('Deck', {name: name, cards: cards})
     }    
   render() {
     const decks = [
@@ -17,14 +17,17 @@ class DeckList extends Component {
                     {name: 'C', cards: 300}]  
     return (
             <View style={styles.container}>
-            {/*     <Text>Decks</Text> */}
                 {decks.map((deck) => {
                     return(
                         <View key={deck['name']}>
                             <TouchableOpacity
-                                onPress={() => this.linkToDeck}>
+                                onPress={() => this.linkToDeck(
+                                    deck['name'], deck['cards'])}>
                                 <Text style={{fontSize: 60}}>
                                     {deck['name']}
+                                </Text>
+                                <Text>
+                                    {deck['cards']} cards
                                 </Text>
                             </TouchableOpacity>
                         </View>    

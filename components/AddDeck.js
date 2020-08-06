@@ -1,10 +1,28 @@
 import React, { Component } from 'react'
-import { Text } from 'react-native'
+import { Text, View, TextInput, TouchableHighlight } from 'react-native'
 
 class AddDeck extends Component {
+    state = {
+        title: ''
+    }
+    createDeck = () => {
+        // send to DB
+        alert(`Creating ${this.state.title}`)
+    }
   render() {
     return (
-      <Text>Form to Add Deck</Text>
+        <View>
+        <Text>What is the title of your new deck?</Text>
+        <TextInput
+        style={{height: 40}}
+        onChangeText={text => this.setState({title: text})}
+        defaultValue='Deck Title'/>
+        <TouchableHighlight onPress={() => this.createDeck()}>
+            <Text>
+                Create Deck
+            </Text>
+        </TouchableHighlight>
+      </View>
     );
   }
 }
