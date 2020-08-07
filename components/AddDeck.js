@@ -8,6 +8,7 @@ class AddDeck extends Component {
     createDeck = () => {
         // send to DB
         alert(`Creating ${this.state.title}`)
+        // redirect to new deck
     }
   render() {
     return (

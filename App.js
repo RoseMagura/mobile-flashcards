@@ -6,6 +6,7 @@ import Deck from './components/Deck';
 import Card from './components/Card';
 import AddCard from './components/AddCard';
 import AddDeck from './components/AddDeck';
+import Quiz from './components/Quiz';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -38,7 +39,7 @@ export default function App() {
                     />
             <Stack.Screen name="Deck" component={Deck} />
             <Stack.Screen name="Add Card" component={AddCard} />
-            {/* <Stack.Screen name="Add Deck" component={AddDeck} /> */}
+            <Stack.Screen name="Quiz" component={Quiz} />
         </Stack.Navigator>
     </NavigationContainer>
   );

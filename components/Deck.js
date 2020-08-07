@@ -1,17 +1,31 @@
 import React from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Alert, Text, View, TouchableOpacity } from 'react-native'
 
 export default function Deck ({ route, navigation }){    
     const { name, cards } = route.params
+    // replace with data from AsyncStorage
+    const cardArray = [
+        {
+          question: 'What is React?',
+          answer: 'A library for managing user interfaces'
+        },
+        {
+          question: 'Where do you make Ajax requests in React?',
+          answer: 'The componentDidMount lifecycle event'
+        }
+      ]
     function addCard (navigation) {
         navigation.navigate('Add Card')
     }
     function startQuiz (navigation) {
-        alert('starting quiz')
-        // navigate to quiz page
+        navigation.navigate('Quiz', {cards: cardArray})
     }
     function deleteDeck () {
-        alert('deleting')
+        Alert.alert('Deleting', 'Are you sure you want to delete this ' +
+        'deck?', [
+                    // To do: replace alert with helper function
+                    {text: 'Yes', onPress: () => alert('DELETE')}, 
+                    {text: 'Cancel', style: 'cancel'}])
     }
     return (
         <View>
