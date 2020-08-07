@@ -14,10 +14,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 
 const Stack = createStackNavigator()
 
-const Tabs =
-    Platform.OS === "ios"
-        ? createBottomTabNavigator()
-        : createMaterialTopTabNavigator();
+const Tabs = createMaterialTopTabNavigator();
 
 const TabNav = () => (
     <Tabs.Navigator>
