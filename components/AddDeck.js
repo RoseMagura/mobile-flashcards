@@ -22,9 +22,8 @@ class AddDeck extends Component {
                 cards: []
             }
         }))
-
         // redirect to new deck
-        // navigation.navigate('Deck', { name: this.state.title, cards: 0 });
+        navigation.navigate('Deck', { name: this.state.title, cards: 0 });
     };
     render() {
         return (

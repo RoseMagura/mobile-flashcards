@@ -12,11 +12,12 @@ class DeckList extends Component {
         const { state } = this.props
         const decks = state['decks']
         return (
-            <View>
-                <Text>
-                    {JSON.stringify(state)}
-                </Text>
+            // <View>
+
                 <View style={styles.container}>
+                                    {/* <Text>
+                    {JSON.stringify(state)}
+                </Text> */}
             {Object.values(decks).length > 0 
                     ? Object.values(decks).map((deck) => {
                         return (
@@ -30,6 +31,9 @@ class DeckList extends Component {
                                         {deck['title']}
                                     </Text>
                                      <Text>{deck['cards'].length} cards</Text>
+                                     <Text>
+                    {JSON.stringify(deck['cards'])}
+                </Text>
                                 </TouchableOpacity>
                             </View>
                         );
@@ -37,7 +41,7 @@ class DeckList extends Component {
                     : <Text>No decks found. Please create one.</Text>
                     }
                 </View>
-            </View>
+            /* </View> */
         );
     }
 }

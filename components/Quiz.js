@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import {
-    getDailyReminderValue,
     clearLocalNotification,
     setLocalNotification,
 } from '../utils/helpers';

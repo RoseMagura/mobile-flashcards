@@ -10,8 +10,10 @@ class Deck extends Component {
         navigation.navigate('Add Card', {deck: this.props.route.params.name});
     };
     startQuiz = () => {
-        const { navigation } = this.props;
-        navigation.navigate('Quiz', { cards: cardArray });
+        const { navigation, state } = this.props;
+        const { name } = this.props.route.params;
+        // const cards = state['decks'][name]['cards']
+        // navigation.navigate('Quiz', { cards: cards });
     };
     deleteDeck = () => {
         const { name } = this.props.route.params;
@@ -34,14 +36,16 @@ class Deck extends Component {
     render() {
         const { state } = this.props
         const { name } = this.props.route.params;
-        const cards = state['decks'][name]['cards']
+        const cards = state['decks'][name] !== undefined && state['decks'][name]['cards']
         return (
             <View style={styles.container}>
-                <Text>{JSON.stringify(state)}</Text>
+                {/* <Text>{JSON.stringify(cards)}</Text> */}
                 <Text style={styles.text}>{name}</Text>
                 <Text style={styles.text}>
-                    {cards !== undefined && 
-                    cards.length} Cards
+                    {
+                    cards !== null && 
+                    cards.length}{' '}
+                    Cards
                 </Text>
                 <TouchableOpacity onPress={() => this.addCard()}>
                     <Text style={styles.text}>Add Card</Text>
