@@ -70,3 +70,14 @@ export function setLocalNotification() {
 //saveDeckTitle
 
 //addCardToDeck
+
+//store data
+// const STORAGE_KEY = 'myKey'
+// store.subscribe(() => AsyncStorage.setItem(
+//   STORAGE_KEY,JSON.stringify(store.getState())
+//   )
+// )
+// checking the async storage for previous stored data
+// AsyncStorage.getItem(STORAGE_KEY).then(JSON.parse).then((data) => {
+//   store.dispatch(handleInitialData(data))
+// })

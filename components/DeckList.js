@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { receiveDecks, receiveCards } from '../actions';
 
 class DeckList extends Component {
     linkToDeck(name, cards) {
@@ -7,29 +9,34 @@ class DeckList extends Component {
         navigation.navigate('Deck', { name: name, cards: cards });
     }
     render() {
-        const decks = [
-            { name: 'A', cards: 9 },
-            { name: 'B', cards: 20 },
-            { name: 'C', cards: 300 },
-        ];
+        const { state } = this.props
+        const decks = state['decks']
         return (
-            <View style={styles.container}>
-                {decks.map((deck) => {
-                    return (
-                        <View key={deck['name']}>
-                            <TouchableOpacity
-                                onPress={() =>
-                                    this.linkToDeck(deck['name'], deck['cards'])
-                                }
-                            >
-                                <Text style={{ fontSize: 60 }}>
-                                    {deck['name']}
-                                </Text>
-                                <Text>{deck['cards']} cards</Text>
-                            </TouchableOpacity>
-                        </View>
-                    );
-                })}
+            <View>
+                <Text>
+                    {JSON.stringify(state)}
+                </Text>
+                <View style={styles.container}>
+            {Object.values(decks).length > 0 
+                    ? Object.values(decks).map((deck) => {
+                        return (
+                            <View key={deck['title']}>
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        this.linkToDeck(deck['title'], deck['cards'])
+                                    }
+                                >
+                                    <Text style={{ fontSize: 60 }}>
+                                        {deck['title']}
+                                    </Text>
+                                     <Text>{deck['cards'].length} cards</Text>
+                                </TouchableOpacity>
+                            </View>
+                        );
+                    })
+                    : <Text>No decks found. Please create one.</Text>
+                    }
+                </View>
             </View>
         );
     }
@@ -44,4 +51,12 @@ const styles = StyleSheet.create({
     },
 });
 
-export default DeckList;
+function mapStateToProps (state) {
+    const { dispatch } = state
+    return {
+        state, 
+        dispatch
+    }
+}
+
+export default connect(mapStateToProps)(DeckList)

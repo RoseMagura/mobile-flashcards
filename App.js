@@ -12,6 +12,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
+import middleware from './middleware';
 
 const Stack = createStackNavigator();
 
@@ -34,7 +35,7 @@ export default class App extends Component {
     }
     render() {
         return (
-            // <Provider store={createStore(reducer)}>
+            <Provider store={createStore(reducer)}>
                 <NavigationContainer style={styles.container}>
                     <Stack.Navigator initialRouteName="TabNav">
                         <Stack.Screen
@@ -48,7 +49,7 @@ export default class App extends Component {
                         <Stack.Screen name="Quiz" component={Quiz} />
                     </Stack.Navigator>
                 </NavigationContainer>
-            // </Provider>
+            </Provider>
         );
     }
 }

@@ -1,56 +1,66 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Alert, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { deleteDeck } from '../actions';
 
-export default function Deck({ route, navigation }) {
-    const { name, cards } = route.params;
+class Deck extends Component {
     // replace with data from AsyncStorage
-    const cardArray = [
-        {
-            question: 'What is React?',
-            answer: 'A library for managing user interfaces',
-        },
-        {
-            question: 'Where do you make Ajax requests in React?',
-            answer: 'The componentDidMount lifecycle event',
-        },
-    ];
-    function addCard(navigation) {
-        navigation.navigate('Add Card');
-    }
-    function startQuiz(navigation) {
+    addCard = () => {
+        const { navigation } = this.props;
+        navigation.navigate('Add Card', {deck: this.props.route.params.name});
+    };
+    startQuiz = () => {
+        const { navigation } = this.props;
         navigation.navigate('Quiz', { cards: cardArray });
-    }
-    function deleteDeck() {
+    };
+    deleteDeck = () => {
+        const { name } = this.props.route.params;
+        const { navigation } = this.props;
         Alert.alert(
             'Deleting',
-            'Are you sure you want to delete this ' + 'deck?',
+            `Are you sure you want to delete ${this.props.route.params.name}? `,
             [
-                // To do: replace alert with helper function
-                { text: 'Yes', onPress: () => alert('DELETE') },
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        this.props.dispatch(deleteDeck(name));
+                        navigation.navigate('Home');
+                    },
+                },
                 { text: 'Cancel', style: 'cancel' },
             ]
         );
+    };
+    render() {
+        const { state } = this.props
+        const { name } = this.props.route.params;
+        const cards = state['decks'][name]['cards']
+        return (
+            <View style={styles.container}>
+                <Text>{JSON.stringify(state)}</Text>
+                <Text style={styles.text}>{name}</Text>
+                <Text style={styles.text}>
+                    {cards !== undefined && 
+                    cards.length} Cards
+                </Text>
+                <TouchableOpacity onPress={() => this.addCard()}>
+                    <Text style={styles.text}>Add Card</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.startQuiz()}>
+                    <Text style={styles.text}>Start Quiz</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.deleteDeck()}>
+                    <Text style={[styles.text, { color: '#990033' }]}>
+                        Delete Deck
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        );
     }
-    return (
-        <View style={styles.container}>
-            <Text style={styles.text}>{name}</Text>
-            <Text style={styles.text}>{cards} Cards</Text>
-            <TouchableOpacity onPress={() => addCard(navigation)}>
-                <Text style={styles.text}>Add Card</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => startQuiz(navigation)}>
-                <Text style={styles.text}>Start Quiz</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => deleteDeck()}>
-                <Text style={styles.text}>Delete Deck</Text>
-            </TouchableOpacity>
-        </View>
-    );
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // justifyContent: 'center',
         alignItems: 'center',
         marginRight: 30,
         marginLeft: 30,
@@ -58,6 +68,11 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        margin: 10
-    }
+        margin: 10,
+    },
 });
+function mapStateToProps (state) {
+    const { dispatch } = state
+    return {state, dispatch}
+}
+export default connect(mapStateToProps)(Deck);

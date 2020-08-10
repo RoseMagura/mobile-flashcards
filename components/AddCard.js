@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { 
+    Text, 
+    TextInput, 
+    View, 
+    TouchableOpacity, 
+    StyleSheet
+} from 'react-native';
+import { addCardToDeck } from '../actions'; 
+import { connect } from 'react-redux'; 
 
 class AddCard extends Component {
     state = {
@@ -7,14 +15,31 @@ class AddCard extends Component {
         answer: '',
     };
     submit = () => {
-        // send to DB instead
-        alert(` Submitting: question: ${this.state.question}, 
-        answer: ${this.state.answer}`);
+        // send to DB
+        const deck = this.props.route.params['deck']
+        // alert(this.props.route.params['deck'])
+        this.props.dispatch(addCardToDeck(
+            // question: this.state.question,
+            // answer: this.state.answer,
+           {question: this.state.question,
+                    answer: this.state.answer,},
+            deck
+        ))
+        
         //navigate back to deck
+        const { navigation } = this.props;
+        navigation.navigate('Deck');
     };
     render() {
+        const { info } = this.props.route.params
         return (
             <View style={styles.container}>
+                <Text>{JSON.stringify(this.props.route.params['deck'])}</Text>
+                <Text>{JSON.stringify(
+                    this.props.state['decks']
+                        [this.props.route.params['deck']])}
+                </Text>
+                {/* <Text>{JSON.stringify(this.props.state['decks']['Deck']['title'])}</Text> */}
                 <TextInput
                     style={styles.textbox}
                     onChangeText={(text) => this.setState({ question: text })}
@@ -54,4 +79,11 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AddCard;
+function mapStateToProps (state) {
+    // const key = timeToString()
+    return {
+        state
+    }
+}
+ 
+export default connect(mapStateToProps)(AddCard)

@@ -77,10 +77,14 @@ class Quiz extends Component {
                         </TouchableOpacity>
                     </View>
                 )}
-                <TouchableOpacity onPress={() => this.toNext(true)}>
+                <TouchableOpacity 
+                    onPress={() => this.toNext(true)}
+                    style={styles.correct}>
                     <Text style={styles.text}>Correct</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.toNext(false)}>
+                <TouchableOpacity 
+                    onPress={() => this.toNext(false)}
+                    style={styles.incorrect}>
                     <Text style={styles.text}>Incorrect</Text>
                 </TouchableOpacity>
             </View>
@@ -115,7 +119,6 @@ class Quiz extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // justifyContent: 'center',
         alignItems: 'center',
         marginRight: 30,
         marginLeft: 30,
@@ -124,7 +127,13 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         margin: 20
-    }
+    },
+    // correct: {
+    //     backgroundColor: 'green'
+    // },
+    // incorrect: {
+    //     backgroundColor: 'red'
+    // }
 });
 
 export default Quiz;
