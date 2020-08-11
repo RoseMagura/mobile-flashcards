@@ -12,7 +12,6 @@ class DeckList extends Component {
         const decks = state['decks'];
         return (
             <View style={styles.container}>
-                <Text>State: {JSON.stringify(state)}</Text>
                 {Object.values(decks).length > 0  ? (
                     Object.values(decks).map((deck) => {
                         return (

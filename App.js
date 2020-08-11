@@ -33,7 +33,6 @@ export default class App extends Component {
     componentDidMount() {
         setLocalNotification();
         getDecks();
-        AsyncStorage.clear();
     }
     render() {
         return (
