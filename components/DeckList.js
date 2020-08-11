@@ -12,7 +12,6 @@ class DeckList extends Component {
         const decks = state['decks'];
         return (
             <View style={styles.container}>
-                {/* <Text>Decks: {JSON.stringify(decks)}</Text> */}
                 <Text>State: {JSON.stringify(state)}</Text>
                 {Object.values(decks).length > 0  ? (
                     Object.values(decks).map((deck) => {
@@ -29,8 +28,8 @@ class DeckList extends Component {
                                     <Text style={{ fontSize: 60 }}>
                                         {deck['title']}
                                     </Text>
-                                    {/* <Text>{deck['cards'].length !== undefined 
-                                    && deck['cards'].length} cards</Text> */}
+                                    <Text>{deck['cards'] !== undefined 
+                                    && deck['cards'].length} cards</Text>
                                 </TouchableOpacity>
                              </View> 
                         );

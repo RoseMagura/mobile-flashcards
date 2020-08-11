@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { deleteDeck } from '../actions';
+import { deleteFromAsync } from '../utils/helpers';
 
 class Deck extends Component {
     // replace with data from AsyncStorage
@@ -26,6 +27,7 @@ class Deck extends Component {
                     text: 'Yes',
                     onPress: () => {
                         this.props.dispatch(deleteDeck(name));
+                        deleteFromAsync(name);
                         navigation.navigate('Home');
                     },
                 },

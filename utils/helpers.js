@@ -69,18 +69,29 @@ export function setLocalNotification() {
 
 
 const STORAGE_KEY = 'myKey'
+logger.log(`state from store: ${JSON.stringify(store.getState())}`);
 store.subscribe(() => AsyncStorage.setItem(
   STORAGE_KEY,JSON.stringify(store.getState())
   )
 )
 // checking the async storage for previous stored data
-const getDecks = () => {
+export function getDecks() {
     AsyncStorage.getItem(STORAGE_KEY).then(JSON.parse).then((data) => {
-    store.dispatch(handleInitialData(data))
+        // logger.log(data)
+        store.dispatch(handleInitialData(data))
 })}
+// is name the same as key? 
+export function deleteFromAsync (deck) {
+    AsyncStorage.removeItem(deck)
+}
 
-//getDeck
+// function getDeck (name) {
 
-//saveDeckTitle
+// }
+// function saveDeckTitle (title) {
 
-//addCardToDeck
+// }
+
+// function addCardToDeck (card, deck) {
+
+// }

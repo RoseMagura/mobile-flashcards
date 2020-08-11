@@ -11,6 +11,8 @@ import { setLocalNotification } from './utils/helpers';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Provider } from 'react-redux';
 import store from './store';
+import { getDecks } from './utils/helpers';
+import {  AsyncStorage } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -30,6 +32,8 @@ const TabNav = () => (
 export default class App extends Component {
     componentDidMount() {
         setLocalNotification();
+        getDecks();
+        AsyncStorage.clear();
     }
     render() {
         return (
