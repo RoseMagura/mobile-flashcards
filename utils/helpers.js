@@ -1,6 +1,9 @@
 import {  AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
+import { handleInitialData } from '../actions';
 import * as Permissions from 'expo-permissions';
+import store from '../store';
+import { logger } from 'react-native-logger';
 
 //Set up notification functionality
 const NOTIFICATION_KEY = 'Flashcards:notifications'; //What is this doing?
@@ -63,21 +66,21 @@ export function setLocalNotification() {
             }
         });
 }
-//getDecks
+
+
+const STORAGE_KEY = 'myKey'
+store.subscribe(() => AsyncStorage.setItem(
+  STORAGE_KEY,JSON.stringify(store.getState())
+  )
+)
+// checking the async storage for previous stored data
+const getDecks = () => {
+    AsyncStorage.getItem(STORAGE_KEY).then(JSON.parse).then((data) => {
+    store.dispatch(handleInitialData(data))
+})}
 
 //getDeck
 
 //saveDeckTitle
 
 //addCardToDeck
-
-//store data
-// const STORAGE_KEY = 'myKey'
-// store.subscribe(() => AsyncStorage.setItem(
-//   STORAGE_KEY,JSON.stringify(store.getState())
-//   )
-// )
-// checking the async storage for previous stored data
-// AsyncStorage.getItem(STORAGE_KEY).then(JSON.parse).then((data) => {
-//   store.dispatch(handleInitialData(data))
-// })

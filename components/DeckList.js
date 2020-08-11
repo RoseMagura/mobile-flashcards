@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { receiveDecks, receiveCards } from '../actions';
 
 class DeckList extends Component {
     linkToDeck(name, cards) {
@@ -9,39 +8,37 @@ class DeckList extends Component {
         navigation.navigate('Deck', { name: name, cards: cards });
     }
     render() {
-        const { state } = this.props
-        const decks = state['decks']
+        const { state } = this.props;
+        const decks = state['decks'];
         return (
-            // <View>
-
-                <View style={styles.container}>
-                                    {/* <Text>
-                    {JSON.stringify(state)}
-                </Text> */}
-            {Object.values(decks).length > 0 
-                    ? Object.values(decks).map((deck) => {
+            <View style={styles.container}>
+                {/* <Text>Decks: {JSON.stringify(decks)}</Text> */}
+                <Text>State: {JSON.stringify(state)}</Text>
+                {Object.values(decks).length > 0  ? (
+                    Object.values(decks).map((deck) => {
                         return (
                             <View key={deck['title']}>
                                 <TouchableOpacity
                                     onPress={() =>
-                                        this.linkToDeck(deck['title'], deck['cards'])
+                                        this.linkToDeck(
+                                            deck['title'],
+                                            deck['cards']
+                                        )
                                     }
                                 >
                                     <Text style={{ fontSize: 60 }}>
                                         {deck['title']}
                                     </Text>
-                                     <Text>{deck['cards'].length} cards</Text>
-                                     <Text>
-                    {JSON.stringify(deck['cards'])}
-                </Text>
+                                    {/* <Text>{deck['cards'].length !== undefined 
+                                    && deck['cards'].length} cards</Text> */}
                                 </TouchableOpacity>
-                            </View>
+                             </View> 
                         );
                     })
-                    : <Text>No decks found. Please create one.</Text>
-                    }
-                </View>
-            /* </View> */
+                ) : (
+                    <Text>No decks found. Please create one.</Text>
+                )}
+            </View>
         );
     }
 }
@@ -55,12 +52,12 @@ const styles = StyleSheet.create({
     },
 });
 
-function mapStateToProps (state) {
-    const { dispatch } = state
+function mapStateToProps(state) {
+    const { dispatch } = state;
     return {
-        state, 
-        dispatch
-    }
+        state,
+        dispatch,
+    };
 }
 
-export default connect(mapStateToProps)(DeckList)
+export default connect(mapStateToProps)(DeckList);

@@ -2,14 +2,16 @@ import {
     RECEIVE_DECKS,
     ADD_DECK,
     DELETE_DECK,
-    ADD_CARD_TO_DECK
+    ADD_CARD_TO_DECK,
+    HANDLE_INITIAL_DATA
 } from '../actions';
 
 export default function decks (state = {}, action) {
     switch (action.type) {
         case RECEIVE_DECKS : 
             return {
-                ...state
+                ...state,
+                ...action.decks
             }
         case ADD_DECK :
             return {
@@ -22,7 +24,6 @@ export default function decks (state = {}, action) {
         case ADD_CARD_TO_DECK :
             return {
                 ...state,
-                // [JSON.stringify(action.deck)]: {
                     [action.deck]: {
                     title: action.deck,
                     cards: 
@@ -30,6 +31,12 @@ export default function decks (state = {}, action) {
                 }
 
             }
+        case HANDLE_INITIAL_DATA :
+            return {
+                ...state,
+                ...action.data['decks']
+                // [decks]: {...action.data}
+            } 
         default :
             return state   
     }

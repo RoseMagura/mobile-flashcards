@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import {
-    clearLocalNotification,
-    setLocalNotification,
-} from '../utils/helpers';
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 class Quiz extends Component {
     state = {
@@ -12,8 +9,8 @@ class Quiz extends Component {
         correct: 0,
     };
     setComplete = () => {
-        clearLocalNotification().then(setLocalNotification)
-    }
+        clearLocalNotification().then(setLocalNotification);
+    };
     toNext = (answer) => {
         const { cardNo, correct } = this.state;
         this.setState({
@@ -76,14 +73,16 @@ class Quiz extends Component {
                         </TouchableOpacity>
                     </View>
                 )}
-                <TouchableOpacity 
+                <TouchableOpacity
                     onPress={() => this.toNext(true)}
-                    style={styles.correct}>
+                    style={styles.correct}
+                >
                     <Text style={styles.text}>Correct</Text>
                 </TouchableOpacity>
-                <TouchableOpacity 
+                <TouchableOpacity
                     onPress={() => this.toNext(false)}
-                    style={styles.incorrect}>
+                    style={styles.incorrect}
+                >
                     <Text style={styles.text}>Incorrect</Text>
                 </TouchableOpacity>
             </View>
@@ -125,7 +124,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        margin: 20
+        margin: 20,
     },
     // correct: {
     //     backgroundColor: 'green'

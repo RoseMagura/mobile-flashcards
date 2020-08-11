@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { 
-    Text, 
-    TextInput, 
-    View, 
-    TouchableOpacity, 
-    StyleSheet
+import {
+    Text,
+    TextInput,
+    View,
+    TouchableOpacity,
+    StyleSheet,
 } from 'react-native';
-import { addCardToDeck } from '../actions'; 
-import { connect } from 'react-redux'; 
+import { addCardToDeck } from '../actions';
+import { connect } from 'react-redux';
 
 class AddCard extends Component {
     state = {
@@ -16,30 +16,21 @@ class AddCard extends Component {
     };
     submit = () => {
         // send to DB
-        const deck = this.props.route.params['deck']
-        // alert(this.props.route.params['deck'])
-        this.props.dispatch(addCardToDeck(
-            // question: this.state.question,
-            // answer: this.state.answer,
-           {question: this.state.question,
-                    answer: this.state.answer,},
-            deck
-        ))
-        
+        const deck = this.props.route.params['deck'];
+        this.props.dispatch(
+            addCardToDeck(
+                { question: this.state.question, answer: this.state.answer },
+                deck
+            )
+        );
+
         //navigate back to deck
         const { navigation } = this.props;
         navigation.navigate('Deck');
     };
     render() {
-        const { info } = this.props.route.params
         return (
             <View style={styles.container}>
-                <Text>{JSON.stringify(this.props.route.params['deck'])}</Text>
-                <Text>{JSON.stringify(
-                    this.props.state['decks']
-                        [this.props.route.params['deck']])}
-                </Text>
-                {/* <Text>{JSON.stringify(this.props.state['decks']['Deck']['title'])}</Text> */}
                 <TextInput
                     style={styles.textbox}
                     onChangeText={(text) => this.setState({ question: text })}
@@ -51,9 +42,7 @@ class AddCard extends Component {
                     defaultValue="Answer"
                 />
                 <TouchableOpacity onPress={() => this.submit()}>
-                    <Text style={{fontSize: 20}}>
-                        Submit
-                    </Text>
+                    <Text style={{ fontSize: 20 }}>Submit</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -75,15 +64,15 @@ const styles = StyleSheet.create({
         padding: 10,
         textAlign: 'center',
         fontSize: 20,
-        margin: 5
+        margin: 5,
     },
 });
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
     // const key = timeToString()
     return {
-        state
-    }
+        state,
+    };
 }
- 
-export default connect(mapStateToProps)(AddCard)
+
+export default connect(mapStateToProps)(AddCard);

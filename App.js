@@ -9,10 +9,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { setLocalNotification } from './utils/helpers';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './reducers';
-import middleware from './middleware';
+import store from './store';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +33,7 @@ export default class App extends Component {
     }
     render() {
         return (
-            <Provider store={createStore(reducer)}>
+            <Provider store={store}>
                 <NavigationContainer style={styles.container}>
                     <Stack.Navigator initialRouteName="TabNav">
                         <Stack.Screen
@@ -44,7 +42,8 @@ export default class App extends Component {
                             options={{ headerShown: true }}
                             style={{backgroundColor: 'red'}}
                         />
-                        <Stack.Screen name="Deck" component={Deck} />
+                        <Stack.Screen name="Deck" component={Deck} 
+                            options={({ route }) => ({title: route.params.name})}/>
                         <Stack.Screen name="Add Card" component={AddCard} />
                         <Stack.Screen name="Quiz" component={Quiz} />
                     </Stack.Navigator>
