@@ -126,12 +126,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         margin: 20,
     },
-    // correct: {
-    //     backgroundColor: 'green'
-    // },
-    // incorrect: {
-    //     backgroundColor: 'red'
-    // }
 });
 
 export default Quiz;

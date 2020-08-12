@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import DeckList from './components/DeckList';
 import Deck from './components/Deck';
 import AddCard from './components/AddCard';
@@ -12,7 +12,6 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { Provider } from 'react-redux';
 import store from './store';
 import { getDecks } from './utils/helpers';
-import {  AsyncStorage } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -43,10 +42,15 @@ export default class App extends Component {
                             name="Home"
                             component={TabNav}
                             options={{ headerShown: true }}
-                            style={{backgroundColor: 'red'}}
+                            style={{ backgroundColor: 'red' }}
                         />
-                        <Stack.Screen name="Deck" component={Deck} 
-                            options={({ route }) => ({title: route.params.name})}/>
+                        <Stack.Screen
+                            name="Deck"
+                            component={Deck}
+                            options={({ route }) => ({
+                                title: route.params.name,
+                            })}
+                        />
                         <Stack.Screen name="Add Card" component={AddCard} />
                         <Stack.Screen name="Quiz" component={Quiz} />
                     </Stack.Navigator>

@@ -33,7 +33,8 @@ export default function decks(state = {}, action) {
                 },
             };
         case HANDLE_INITIAL_DATA:
-            logger.log(`Initial Data from AsyncStorage: ${JSON.stringify(action.data)}`);
+            // can uncomment this for debugging
+            // logger.log(`Initial Data from AsyncStorage: ${JSON.stringify(action.data)}`);
             return {
                 ...state,
                 ...action.data['decks'],

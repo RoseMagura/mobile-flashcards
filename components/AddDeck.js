@@ -6,7 +6,7 @@ import {
     TouchableHighlight,
     StyleSheet,
 } from 'react-native';
-import { addDeck } from '../actions'; 
+import { addDeck } from '../actions';
 import { connect } from 'react-redux';
 
 class AddDeck extends Component {
@@ -16,12 +16,14 @@ class AddDeck extends Component {
     createDeck = () => {
         const { navigation } = this.props;
         // send to DB
-        this.props.dispatch(addDeck({
-            [this.state.title]: {
-                title: this.state.title,
-                cards: []
-            }
-        }))
+        this.props.dispatch(
+            addDeck({
+                [this.state.title]: {
+                    title: this.state.title,
+                    cards: [],
+                },
+            })
+        );
         // redirect to new deck
         navigation.navigate('Deck', { name: this.state.title, cards: 0 });
     };
@@ -70,11 +72,11 @@ const styles = StyleSheet.create({
         padding: 10,
     },
 });
-function mapStateToProps (state) {
-    const { store, dispatch } = state
+function mapStateToProps(state) {
+    const { store, dispatch } = state;
     return {
-        store, 
-        dispatch
-    }
+        store,
+        dispatch,
+    };
 }
-export default connect(mapStateToProps)(AddDeck)
+export default connect(mapStateToProps)(AddDeck);

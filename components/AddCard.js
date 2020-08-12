@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-    // const key = timeToString()
     return {
         state,
     };

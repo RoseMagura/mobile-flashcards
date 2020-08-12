@@ -5,7 +5,6 @@ import { deleteDeck } from '../actions';
 import { deleteFromAsync } from '../utils/helpers';
 
 class Deck extends Component {
-    // replace with data from AsyncStorage
     addCard = () => {
         const { navigation } = this.props;
         navigation.navigate('Add Card', { deck: this.props.route.params.name });
@@ -42,7 +41,6 @@ class Deck extends Component {
             state['decks'][name] !== undefined && state['decks'][name]['cards'];
         return (
             <View style={styles.container}>
-                {/* <Text>{JSON.stringify(cards)}</Text> */}
                 <Text style={styles.text}>{name}</Text>
                 <Text style={styles.text}>
                     {cards !== null && cards.length} Cards

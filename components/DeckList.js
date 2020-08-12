@@ -12,7 +12,7 @@ class DeckList extends Component {
         const decks = state['decks'];
         return (
             <View style={styles.container}>
-                {Object.values(decks).length > 0  ? (
+                {Object.values(decks).length > 0 ? (
                     Object.values(decks).map((deck) => {
                         return (
                             <View key={deck['title']}>
@@ -27,10 +27,13 @@ class DeckList extends Component {
                                     <Text style={{ fontSize: 60 }}>
                                         {deck['title']}
                                     </Text>
-                                    <Text>{deck['cards'] !== undefined 
-                                    && deck['cards'].length} cards</Text>
+                                    <Text>
+                                        {deck['cards'] !== undefined &&
+                                            deck['cards'].length}{' '}
+                                        cards
+                                    </Text>
                                 </TouchableOpacity>
-                             </View> 
+                            </View>
                         );
                     })
                 ) : (

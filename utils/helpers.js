@@ -1,4 +1,4 @@
-import {  AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
 import { handleInitialData } from '../actions';
 import * as Permissions from 'expo-permissions';
@@ -6,7 +6,7 @@ import store from '../store';
 import { logger } from 'react-native-logger';
 
 //Set up notification functionality
-const NOTIFICATION_KEY = 'Flashcards:notifications'; //What is this doing?
+const NOTIFICATION_KEY = 'Flashcards:notifications';
 
 export function getDailyReminderValue() {
     return {
@@ -67,31 +67,23 @@ export function setLocalNotification() {
         });
 }
 
+const STORAGE_KEY = 'myKey';
+// can uncomment this for debugging
+// logger.log(`state from store: ${JSON.stringify(store.getState())}`);
+store.subscribe(() =>
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(store.getState()))
+);
 
-const STORAGE_KEY = 'myKey'
-logger.log(`state from store: ${JSON.stringify(store.getState())}`);
-store.subscribe(() => AsyncStorage.setItem(
-  STORAGE_KEY,JSON.stringify(store.getState())
-  )
-)
 // checking the async storage for previous stored data
 export function getDecks() {
-    AsyncStorage.getItem(STORAGE_KEY).then(JSON.parse).then((data) => {
-        // logger.log(data)
-        store.dispatch(handleInitialData(data))
-})}
-// is name the same as key? 
-export function deleteFromAsync (deck) {
-    AsyncStorage.removeItem(deck)
+    AsyncStorage.getItem(STORAGE_KEY)
+        .then(JSON.parse)
+        .then((data) => {
+            // logger.log(data)
+            store.dispatch(handleInitialData(data));
+        });
 }
 
-// function getDeck (name) {
-
-// }
-// function saveDeckTitle (title) {
-
-// }
-
-// function addCardToDeck (card, deck) {
-
-// }
+export function deleteFromAsync(deck) {
+    AsyncStorage.removeItem(deck);
+}
